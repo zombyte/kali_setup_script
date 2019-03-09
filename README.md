@@ -57,7 +57,7 @@ A [x] signifies modified to be universally accessible in the file system. Releva
 - [atom](https://github.com/atom/atom)
 
 ### Easy Execution
-curl https://raw.githubusercontent.com/zombyte/kali_setup_script/master/kali_setup_script.sh | bash -s -- -u true -p project
+`curl https://raw.githubusercontent.com/zombyte/kali_setup_script/master/kali_setup_script.sh | bash -s -- -u true -p project`
 
 ### ToDo
 - fix issue with host-git script running from /usr/bin
@@ -66,5 +66,6 @@ curl https://raw.githubusercontent.com/zombyte/kali_setup_script/master/kali_set
 - Make mindmap of test process, save to repo, and set to background
 - Add better logic for installation
 - Add update logic to update git repos
+- Update readme to table fromat
 - Add flags for each tool 
 - Add installation groups
