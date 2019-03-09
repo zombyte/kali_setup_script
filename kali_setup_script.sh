@@ -33,6 +33,8 @@ echo -e "\n== 1.0 Updating OS"
 if ${UPGRADE} ; then
 	apt update
 	apt upgrade -y
+else
+	echo OS Updates skipped.
 fi
 
 # OS Package Installations
