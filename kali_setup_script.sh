@@ -116,12 +116,12 @@ echo -e "\n== 3.12 Cloning vulscan"
 mkdir -p /usr/share/nmap/scripts/vulscan
 git clone https://github.com/scipag/vulscan.git ~/Downloads/git_repos/vulscan
 cp ~/Downloads/git_repos/vulscan/* /usr/share/nmap/scripts/vulscan
-echo "wget http://www.computec.ch/projekte/vulscan/download/cve.csv -o /usr/share/nmap/scripts/vulscan/cve.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
-echo "wget http://www.computec.ch/projekte/vulscan/download/osvdb.csv -o /usr/share/nmap/scripts/vulscan/osvdb.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
-echo "wget http://www.computec.ch/projekte/vulscan/download/scipvuldb.csv -o /usr/share/nmap/scripts/vulscan/scipvuldb.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
-echo "wget http://www.computec.ch/projekte/vulscan/download/securityfocus.csv -o /usr/share/nmap/scripts/vulscan/securityfocus.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
-echo "wget http://www.computec.ch/projekte/vulscan/download/securitytracker.csv -o /usr/share/nmap/scripts/vulscan/securitytracker.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
-echo "wget http://www.computec.ch/projekte/vulscan/download/xforce.csv  -o /usr/share/nmap/scripts/vulscan/xforce.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/cve.csv -O /usr/share/nmap/scripts/vulscan/cve.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/osvdb.csv -O /usr/share/nmap/scripts/vulscan/osvdb.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/scipvuldb.csv -O /usr/share/nmap/scripts/vulscan/scipvuldb.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/securityfocus.csv -O /usr/share/nmap/scripts/vulscan/securityfocus.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/securitytracker.csv -O /usr/share/nmap/scripts/vulscan/securitytracker.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
+echo "wget http://www.computec.ch/projekte/vulscan/download/xforce.csv  -O /usr/share/nmap/scripts/vulscan/xforce.csv" >> /usr/share/nmap/scripts/vulscan/update.sh
 echo -e "* 0 * * * root /usr/share/nmap/scripts/vulscan/update.sh" >> /etc/crontab
 /bin/bash /usr/share/nmap/scripts/vulscan/update.sh
 
@@ -216,7 +216,7 @@ npm install slimerjs
 npm install casterjs
 
 echo -e "\n=== 4.2 Installing old FireFox for Casper"
-wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -o /tmp/firefox-59.0.3.tar.bz2
+wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -O /tmp/firefox-59.0.3.tar.bz2
 tar vxjf /tmp/firefox-59.0.3.tar.bz2 -C /opt
 echo "export SLIMERJSLAUNCHER=/opt/firefox/firefox" >> ~/.bash_profile
 source ~/.bash_profile
@@ -232,13 +232,14 @@ echo -e "\n=== 4.5 Installing Atom"
 snap install atom --classic
 
 echo -e "\n=== 4.6 Set Firefox Bookmarks"
-wget https://github.com/zombyte/kali_setup_script/places.sqlite -o /tmp/places.sqlite
+wget https://github.com/zombyte/kali_setup_script/places.sqlite -O /tmp/places.sqlite
 firefox_default_path=$(find ~/.mozilla/firefox/ -name "places.sqlite")
 sqlite3 ${firefox_default_path} ".restore /tmp/places.sqlite"
 
 # link nc and stuff to git for hosting
-wget https://github.com/zombyte/kali_setup_script/host-git.py -o /usr/bin/host-git
-chmod +x /usr/bin/host-git
+
+wget https://github.com/zombyte/kali_setup_script/host-git.py -O /usr/bin/host-files
+chmod +x /usr/bin/host-files
 mkdir ~/Downloads/os_files
 ln -s /usr/share/windows-binaries/ ~/Downloads/os_files/windows-binaries
 ln -s /usr/share/webshells/ ~/Downloads/os_files/webshell
