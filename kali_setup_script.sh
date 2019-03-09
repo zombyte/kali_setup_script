@@ -18,7 +18,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Check for project name
-if [[ -z ${{PROJECT}  ]]; then
+if [[ -z ${PROJECT}  ]]; then
 	echo No project specified
 	exit 1
 fi
@@ -41,6 +41,8 @@ apt install -y apt-transport-https ca-certificates curl gnupg-agent software-pro
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
 apt update
 apt install -y docker-ce
+systemctl start docker
+systemctl enable docker
 
 echo -e "\n=== 2.2 Installing Snapd"
 apt install -y snapd
@@ -51,10 +53,9 @@ source ~/.bashrc
 
 echo -e "\n=== 2.3 Installing GoLang"
 apt install -y golang
-source ~/.bash_profile
 
 echo -e "\n=== 2.4 Installing Node/NPM"
-apt install -y nodejs
+apt install -y npm
 echo -e "\n export PATH=\$PATH:/opt/node_modules/.bin" >> ~/.bashrc
 source ~/.bashrc
 
@@ -99,11 +100,11 @@ git clone https://github.com/mzet-/linux-exploit-suggester.git ~/Downloads/git_r
 echo -e "\n=== 3.7 Cloning Windows-Exploit-Suggester"
 git clone https://github.com/GDSSecurity/Windows-Exploit-Suggester.git ~/Downloads/git_repos/Windows-Exploit-Suggester
 
-echo -e "\n=== 3.8 Cloning Watson"
-git clone https://github.com/rasta-mouse/Watson.git ~/Downloads/git_repos/Watson
-
-echo -e "\n=== 3.9 Cloning Sherlock"
+echo -e "\n=== 3.8 Cloning Sherlock"
 git clone https://github.com/rasta-mouse/Sherlock.git ~/Downloads/git_repos/Sherlock
+
+echo -e "\n=== 3.9 Cloning Watson"
+git clone https://github.com/rasta-mouse/Watson.git ~/Downloads/git_repos/Watson
 
 echo -e "\n=== 3.10 Cloning php-reverse-shell"
 git clone https://github.com/pentestmonkey/php-reverse-shell.git ~/Downloads/git_repos/php-reverse-shell
@@ -179,18 +180,18 @@ docker run --name astra-mongo -d mongo
 git clone https://github.com/flipkart-incubator/Astra.git ~/Downloads/git_repos/Astra
 cd ~/Downloads/git_repos/Astra
 docker build -t astra .
-docker run --rm -it --link astra-mongo:mongo -p 8094:8094 --name astra astra
+docker run --rm -it --link astra-mongo:mongo -p 8094:8094 -d --name astra astra
 git clone -b docker-cli https://github.com/flipkart-incubator/Astra.git ~/Downloads/git_repos/Astra-cli
 cd ~/Downloads/git_repos/Astra-cli
 docker build -t astra-cli .
-docker run --rm -it --link astra-mongo:mongo --name astra-cli astra-cli
+docker run --rm -it --link astra-mongo:mongo -d --name astra-cli astra-cli
 
 echo -e "\n=== 3.23 Cloning AutoRecon"
 git clone https://github.com/Tib3rius/AutoRecon.git ~/Downloads/git_repos/AutoRecon
 cd ~/Downloads/git_repos/AutoRecon
 pip3 install -r requirements.txt
-sed -i 's\port-scan-profiles.toml\/root/Downloads/git_repos/AutoRecon/port-scan-profiles.toml\' autorecon.py
-sed -i 's\service-scans.toml\/root/Downloads/git_repos/AutoRecon/service-scans.toml\' autorecon.py
+sed -i "s,'port-scan-profiles.toml','/root/Downloads/git_repos/AutoRecon/port-scan-profiles.toml'," autorecon.py
+sed -i "s,'service-scans.toml','/root/Downloads/git_repos/AutoRecon/service-scans.toml'," autorecon.py
 chmod +x autorecon.py
 ln -s ~/Downloads/git_repos/AutoRecon/autorecon.py /usr/bin/autorecon
 
@@ -199,7 +200,8 @@ git clone https://github.com/D35m0nd142/LFISuite.git ~/Downloads/git_repos/LFISu
 
 echo -e "\n=== 3.25 Cloning Empire"
 git clone https://github.com/EmpireProject/Empire.git ~/Downloads/git_repos/Empire
-~/Downloads/git_repos/Empire/setup/install.sh
+cd ~/Downloads/git_repos/Empire/
+./setup/install.sh
 
 echo -e "\n=== 3.26 Cloning nishang"
 git clone https://github.com/samratashok/nishang.git ~/Downloads/git_repos/nishang
@@ -214,7 +216,7 @@ npm install slimerjs
 npm install casterjs
 
 echo -e "\n=== 4.2 Installing old FireFox for Casper"
-wget wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -o /tmp/firefox-59.0.3.tar.bz2
+wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -o /tmp/firefox-59.0.3.tar.bz2
 tar vxjf /tmp/firefox-59.0.3.tar.bz2 -C /opt
 echo "export SLIMERJSLAUNCHER=/opt/firefox/firefox" >> ~/.bash_profile
 source ~/.bash_profile
@@ -230,20 +232,20 @@ echo -e "\n=== 4.5 Installing Atom"
 snap install atom --classic
 
 echo -e "\n=== 4.6 Set Firefox Bookmarks"
-wget https://github.com/zombyte/kali_setup_script/places.sqlite
+wget https://github.com/zombyte/kali_setup_script/places.sqlite -o /tmp/places.sqlite
 firefox_default_path=$(find ~/.mozilla/firefox/ -name "places.sqlite")
-sqlite3 ${firefox_default_path} ".restore places.sqlite"
+sqlite3 ${firefox_default_path} ".restore /tmp/places.sqlite"
 
 # link nc and stuff to git for hosting
 wget https://github.com/zombyte/kali_setup_script/host-git.py -o /usr/bin/host-git
 chmod +x /usr/bin/host-git
-ln -s /usr/share/windows-binaries/ ~/Downloads/git_repos/windows-binaries
-ln -s /usr/share/webshells/ ~/Downloads/git_repos/webshells
+mkdir ~/Downloads/os_files
+ln -s /usr/share/windows-binaries/ ~/Downloads/os_files/windows-binaries
+ln -s /usr/share/webshells/ ~/Downloads/os_files/webshell
 
 echo -e "\n== 5.0 Burp Moditifications"
 
 echo -e "\n== 6.0 Cleanup"
 apt autoremove -y
 apt autoclean -y
-rm /tmp/*
 shutdown -r now
