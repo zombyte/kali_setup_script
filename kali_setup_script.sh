@@ -51,15 +51,19 @@ echo -e "\n=== 2.2 Installing Snapd"
 apt install -y snapd
 systemctl start snapd
 systemctl enable snapd
-echo -e "\nexport PATH=\$PATH:/snap/bin" >> ~/.bashrc
+echo -e "export PATH=\$PATH:/snap/bin" >> ~/.bashrc
 source ~/.bashrc
 
 echo -e "\n=== 2.3 Installing GoLang"
 apt install -y golang
+echo -e "export GOPATH=\$HOME/go" >> ~/.bash_profile
+source ~/.bash_profile
+echo -e "export PATH=\$PATH:\$GOPATH/bin" >> ~/.bashrc
+source ~/.bashrc
 
 echo -e "\n=== 2.4 Installing Node/NPM"
 apt install -y npm
-echo -e "\n export PATH=\$PATH:/opt/node_modules/.bin" >> ~/.bashrc
+echo -e "export PATH=\$PATH:/opt/node_modules/.bin" >> ~/.bashrc
 source ~/.bashrc
 
 echo -e "\n=== 2.4 Installing KeepNote"
@@ -166,6 +170,7 @@ pip install -r requirements.txt
 echo -e "\n=== 3.18 Cloning subfinder"
 git clone https://github.com/subfinder/subfinder.git ~/Downloads/git_repos/subfinder
 cd ~/Downloads/git_repos/subfinder
+go get
 go build
 ln -s ~/Downloads/git_repos/subfinder/subfinder /usr/bin/subfinder
 
@@ -247,9 +252,10 @@ sqlite3 ${firefox_default_path} ".restore /tmp/places.sqlite"
 
 wget https://github.com/zombyte/kali_setup_script/host-git.py -O /usr/bin/host-files
 chmod +x /usr/bin/host-files
-mkdir ~/Downloads/os_files
-ln -s /usr/share/windows-binaries/ ~/Downloads/os_files/windows-binaries
-ln -s /usr/share/webshells/ ~/Downloads/os_files/webshell
+mkdir -p ~/host-files/os_files
+ln -s /usr/share/windows-binaries/ ~/host-files/os_files/windows-binaries
+ln -s /usr/share/webshells/ ~/host-files/os_files/webshell
+ln -s ~/Downloads/git_repos/ ~/host-files/os_files/webshell
 
 echo -e "\n== 5.0 Burp Moditifications"
 
