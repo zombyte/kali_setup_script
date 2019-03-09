@@ -14,6 +14,9 @@ while [[ $# -gt 0 ]]; do
 		-u|--upgrade)
 			UPGRADE="$2"
 			shift; shift;;
+		-ov|--openvas)
+			OPENVAS="$2"
+			shift; shift;;			
 	esac
 done
 
@@ -72,10 +75,14 @@ echo -e "\n=== 2.7 Installing CrackMapExec"
 apt install -y crackmapexec
 
 echo -e "\n=== 2.8 Installing OpenVAS"
-apt install -y openvas
-openvas-setup
-openvas-start
-systemctl enable openvas
+if ${OPENVAS} ; then
+	apt install -y openvas
+	openvas-setup
+	openvas-start
+	systemctl enable openvas
+else
+	echo OpenVAS install skipped.
+fi
 
 # GIT based repo installations
 echo "== 3.0 Git Repos (~/Downloads/git_repos)"
