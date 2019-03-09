@@ -1,4 +1,4 @@
-A simple script that completes installs the following tools and configurations to my liking. Broken into sections by installation method. 
+A simple script that installs the following tools and configurations to my liking. Broken into sections by installation method. 
 
 ### 0.0 Reset Root Password
 Change that shit from toor
