@@ -1,12 +1,12 @@
 A simple script that completes installs the following tools and configurations to my liking. Broken into sections by installation method. 
 
-=== 0.0 Reset Root Password
+### 0.0 Reset Root Password
 Change that shit from toor
 
-=== 1.0
+### 1.0 OS Updates
 - OS Updates 
 
-=== OS Package Installations
+### OS Package Installations
 - [Docker](https://github.com/docker/docker-ce)
 - [Snap](https://github.com/snapcore/snapd)
 - [Go](https://github.com/golang/go)
@@ -18,8 +18,9 @@ Change that shit from toor
 - [KeepNote](https://github.com/mdrasmus/keepnote)
 - [OpenVAS](https://github.com/greenbone/openvas-scanner)
 
-=== GIT based repo installation
+### GIT based repo installation
 A [x] signifies modified to be universally accessible in the file system. Relevant details below. I wasn't able to do this for all script/applications however since my bash-fu/python-fu is scrub level at best.
+
 - [ ][LinEnum](https://github.com/rebootuser/LinEnum)
 - [ ][linuxprivchecker](https://github.com/sleventyeleven/linuxprivchecker)
 - [ ][JAWS](https://github.com/411Hall/JAWS)
@@ -46,7 +47,7 @@ A [x] signifies modified to be universally accessible in the file system. Releva
 - [ ][Empire](https://github.com/EmpireProject/Empire)
 - [ ][nishang](https://github.com/samratashok/nishang)
 
-=== Additionally Scripted Installations
+### Additionally Scripted Installations
 - [PhantomJS](https://github.com/ariya/phantomjs)
 - [SlimerJS](https://github.com/laurentj/slimerjs)
 - [CasperJS](https://github.com/casperjs/casperjs)
@@ -54,3 +55,16 @@ A [x] signifies modified to be universally accessible in the file system. Releva
 - [wfuzz](https://github.com/xmendez/wfuzz)
 - [pycharm-community](https://www.jetbrains.com/pycharm/download/)
 - [atom](https://github.com/atom/atom)
+
+### Easy Execution
+curl https://raw.githubusercontent.com/zombyte/kali_setup_script/master/kali_setup_script.sh | bash -s -- -u true -p project
+
+### ToDo
+- fix issue with host-git script running from /usr/bin
+- Install burp pro
+- Add more bookmarks
+- Make mindmap of test process, save to repo, and set to background
+- Add better logic for installation
+- Add update logic to update git repos
+- Add flags for each tool 
+- Add installation groups
