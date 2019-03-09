@@ -37,7 +37,7 @@ def test(HandlerClass=RootedHTTPRequestHandler, ServerClass=RootedHTTPServer):
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', '-p', default=8000, type=int)
-    parser.add_argument('--dir', '-d', default='/root/Downloads/git_repos/', type=str)
+    parser.add_argument('--dir', '-d', default='/root/host-files/', type=str)
     args = parser.parse_args()
 
     server_address = ('', args.port)
