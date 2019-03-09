@@ -36,43 +36,43 @@ fi
 echo -e "\n== 2.0 OS Package Installations"
 
 echo -e "\n=== 2.1 Installing Docker"
-$(apt remove docker docker-engine docker.io containerd runc)
-$(apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common)
+apt remove docker docker-engine docker.io containerd runc
+apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
-$(apt update)
-$(apt install -y docker-ce)
-$(systemctl start docker)
-$(systemctl enable docker)
+apt update
+apt install -y docker-ce
+systemctl start docker
+systemctl enable docker
 
 echo -e "\n=== 2.2 Installing Snapd"
-$(apt install -y snapd)
-$(systemctl start snapd)
-$(systemctl enable snapd)
+apt install -y snapd
+systemctl start snapd
+systemctl enable snapd
 echo -e "\nexport PATH=\$PATH:/snap/bin" >> ~/.bashrc
 source ~/.bashrc
 
 echo -e "\n=== 2.3 Installing GoLang"
-$(apt install -y golang)
+apt install -y golang
 
 echo -e "\n=== 2.4 Installing Node/NPM"
-$(apt install -y npm)
+apt install -y npm
 echo -e "\n export PATH=\$PATH:/opt/node_modules/.bin" >> ~/.bashrc
 source ~/.bashrc
 
 echo -e "\n=== 2.4 Installing KeepNote"
-$(apt install -y keepnote)
+apt install -y keepnote
 
 echo -e "\n=== 2.5 Installing SecLists"
-$(apt install -y seclists)
+apt install -y seclists
 
 echo -e "\n=== 2.6 Installing GoBuster"
-$(apt install -y gobuster)
+apt install -y gobuster
 
 echo -e "\n=== 2.7 Installing CrackMapExec"
-$(apt install -y crackmapexec)
+apt install -y crackmapexec
 
 echo -e "\n=== 2.8 Installing OpenVAS"
-$(apt install -y openvas)
+apt install -y openvas
 openvas-setup
 openvas-start
 systemctl enable openvas
@@ -128,26 +128,26 @@ echo -e "* 0 * * * root /usr/share/nmap/scripts/vulscan/update.sh" >> /etc/cront
 echo -e "\n=== 3.13 Cloning SSRFmap"
 git clone https://github.com/swisskyrepo/SSRFmap.git ~/Downloads/git_repos/SSRFmap
 cd ~/Downloads/git_repos/SSRFmap
-$(pip3 install -r requirements.txt)
+pip3 install -r requirements.txt
 sed -i 's_#!/usr/bin/python_#!/usr/bin/python3_' ~/Downloads/git_repos/SSRFmap/ssrfmap.py 
 ln -s ~/Downloads/git_repos/SSRFmap/ssrfmap.py /usr/bin/ssrfmap
 
 echo -e "\n=== 3.14 Cloning pacu"
 git clone https://github.com/RhinoSecurityLabs/pacu.git ~/Downloads/git_repos/pacu
 cd ~/Downloads/git_repos
-$(/bin/bash install.sh)
+/bin/bash install.sh
 
 echo -e "\n=== 3.15 Cloning XSRFProbe"
 git clone https://github.com/0xInfection/XSRFProbe.git ~/Downloads/git_repos/XSRFProbe
 cd ~/Downloads/git_repos/XSRFProbe
-$(pip3 install -r requirements.txt)
+pip3 install -r requirements.txt
 chmod +x ~/Downloads/git_repos/XSRFprobe/xsrfprobe.py
 ln -s ~/Downloads/git_repos/XSRFProbe/xsrfprobe.py /usr/bin/xsrfprobe
 
 echo -e "\n=== 3.16 Cloning XSStrike"
 git clone https://github.com/s0md3v/XSStrike.git ~/Downloads/git_repos/XSStrike
 cd ~/Downloads/git_repos/XSStrike
-$(pip3 install -r requirements.txt)
+pipr install -r requirements.txt
 chmod +x ~/Downloads/git_repos/XSStrike/xsstrike.py
 ln -s ~/Downloads/git_repos/XSStrike/xsstrike.py /usr/bin/xsstrike
 
@@ -159,37 +159,37 @@ pip install -r requirements.txt
 echo -e "\n=== 3.18 Cloning subfinder"
 git clone https://github.com/subfinder/subfinder.git ~/Downloads/git_repos/subfinder
 cd ~/Downloads/git_repos/subfinder
-$(go build)
+go build
 ln -s ~/Downloads/git_repos/subfinder/subfinder /usr/bin/subfinder
 
 echo -e "\n=== 3.19 Cloning ScoutSuite"
 git clone https://github.com/nccgroup/ScoutSuite.git ~/Downloads/git_repos/ScoutSuite
 cd ~/Downloads/git_repos/ScoutSuite
-$(pip install -r requirements.txt)
+pip install -r requirements.txt
 chmod +x Scout.py
 ln -s ~/Downloads/git_repos/ScoutSuite/Scount.py /usr/bin/Scout
 
 echo -e "\n=== 3.20 Cloning NoSQLMap"
 git clone https://github.com/codingo/NoSQLMap.git ~/Downloads/git_repos/NoSQLMap
 cd ~/Downloads/git_repos/NoSQLMap
-$(python setup.py install)
+python setup.py install
 
 echo -e "\n=== 3.22 Cloning Astra"
-$(docker pull mongo)
-$(docker run --name astra-mongo -d mongo)
+docker pull mongo
+docker run --name astra-mongo -d mongo
 git clone https://github.com/flipkart-incubator/Astra.git ~/Downloads/git_repos/Astra
 cd ~/Downloads/git_repos/Astra
-$(docker build -t astra .)
-$(docker run --rm -it --link astra-mongo:mongo -p 8094:8094 -d --name astra astra)
+docker build -t astra .
+docker run --rm -it --link astra-mongo:mongo -p 8094:8094 -d --name astra astra
 git clone -b docker-cli https://github.com/flipkart-incubator/Astra.git ~/Downloads/git_repos/Astra-cli
 cd ~/Downloads/git_repos/Astra-cli
-$(docker build -t astra-cli .)
-$(docker run --rm -it --link astra-mongo:mongo -d --name astra-cli astra-cli$(
+docker build -t astra-cli .
+docker run --rm -it --link astra-mongo:mongo -d --name astra-cli astra-cli
 
 echo -e "\n=== 3.23 Cloning AutoRecon"
 git clone https://github.com/Tib3rius/AutoRecon.git ~/Downloads/git_repos/AutoRecon
 cd ~/Downloads/git_repos/AutoRecon
-$(pip3 install -r requirements.txt)
+pip3 install -r requirements.txt
 sed -i "s,'port-scan-profiles.toml','/root/Downloads/git_repos/AutoRecon/port-scan-profiles.toml'," autorecon.py
 sed -i "s,'service-scans.toml','/root/Downloads/git_repos/AutoRecon/service-scans.toml'," autorecon.py
 chmod +x autorecon.py
@@ -209,35 +209,35 @@ git clone https://github.com/samratashok/nishang.git ~/Downloads/git_repos/nisha
 # Additional Installation Steps
 echo -e "\n== 4.0 Additional Installations"
 echo -e "\n==== 4.1 Installing PhantomJS, SlimerJS, and CasperJS"
-$(apt install -y phantomjs)
-$(apt install -y libc6 libstdc++6 libgcc1 libgtk2.0-0 libasound2 libxrender1 libdbus-glib-1-2)
+apt install -y phantomjs
+apt install -y libc6 libstdc++6 libgcc1 libgtk2.0-0 libasound2 libxrender1 libdbus-glib-1-2
 cd /opt/
-$(npm install slimerjs)
-$(npm install casterjs)
+npm install slimerjs
+npm install casterjs
 
 echo -e "\n=== 4.2 Installing old FireFox for Casper"
-$(wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -o /tmp/firefox-59.0.3.tar.bz2)
-$(tar vxjf /tmp/firefox-59.0.3.tar.bz2 -C /opt)
+wget https://ftp.mozilla.org/pub/firefox/releases/59.0.3/linux-x86_64/en-US/firefox-59.0.3.tar.bz2 -o /tmp/firefox-59.0.3.tar.bz2
+tar vxjf /tmp/firefox-59.0.3.tar.bz2 -C /opt
 echo "export SLIMERJSLAUNCHER=/opt/firefox/firefox" >> ~/.bash_profile
 source ~/.bash_profile
 rm /tmp/firefox-59.0.3.tar.bz2
 
 echo -e "\n=== 4.3 Installing wfuzz"
-$(pip install wfuzz)
+pip install wfuzz
 
 echo -e "\n=== 4.4 Installing PyCharm"
-$(snap install pycharm-community --classic)
+snap install pycharm-community --classic
 
 echo -e "\n=== 4.5 Installing Atom"
-$(snap install atom --classic)
+snap install atom --classic
 
 echo -e "\n=== 4.6 Set Firefox Bookmarks"
-$(wget https://github.com/zombyte/kali_setup_script/places.sqlite -o /tmp/places.sqlite)
+wget https://github.com/zombyte/kali_setup_script/places.sqlite -o /tmp/places.sqlite
 firefox_default_path=$(find ~/.mozilla/firefox/ -name "places.sqlite")
 sqlite3 ${firefox_default_path} ".restore /tmp/places.sqlite"
 
 # link nc and stuff to git for hosting
-$(wget https://github.com/zombyte/kali_setup_script/host-git.py -o /usr/bin/host-git)
+wget https://github.com/zombyte/kali_setup_script/host-git.py -o /usr/bin/host-git
 chmod +x /usr/bin/host-git
 mkdir ~/Downloads/os_files
 ln -s /usr/share/windows-binaries/ ~/Downloads/os_files/windows-binaries
@@ -246,6 +246,6 @@ ln -s /usr/share/webshells/ ~/Downloads/os_files/webshell
 echo -e "\n== 5.0 Burp Moditifications"
 
 echo -e "\n== 6.0 Cleanup"
-$(apt autoremove -y)
-$(apt autoclean -y)
+apt autoremove -y
+apt autoclean -y
 shutdown -r now
