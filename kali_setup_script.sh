@@ -241,7 +241,7 @@ echo -e "\n==== 4.1 Installing PhantomJS, SlimerJS, and CasperJS"
 apt install -y phantomjs
 apt install -y libc6 libstdc++6 libgcc1 libgtk2.0-0 libasound2 libxrender1 libdbus-glib-1-2
 cd /opt/
-apt install npm
+apt install -y npm
 npm install slimerjs
 npm install casterjs
 
