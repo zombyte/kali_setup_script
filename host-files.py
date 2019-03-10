@@ -52,7 +52,6 @@ def test(HandlerClass=RootedHTTPRequestHandler, ServerClass=RootedHTTPServer):
 
     sa = httpd.socket.getsockname()
     print "Serving HTTP on", sa[0], "port", sa[1], "..."
-    print "Serving", args.dir
     httpd.serve_forever()
 
 if __name__ == '__main__':
