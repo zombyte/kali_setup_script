@@ -1,6 +1,5 @@
-# http://louistiao.me/posts/python-simplehttpserver-recipe-serve-specific-directory/
 #! /usr/bin/python2
-# -*- coding: utf-8 -*-
+# http://louistiao.me/posts/python-simplehttpserver-recipe-serve-specific-directory/
 
 import posixpath
 import argparse
